@@ -1,3 +1,6 @@
+.PHONY: run
+
+
 CFLAGS = -Wno-undefined-bool-conversion
 
 all:
@@ -6,3 +9,10 @@ all:
 
 clean:
 	rm -rf obj_dir data.vcd
+
+
+data.vcd:
+	obj_dir/Vtop
+
+default: data.vcd
+

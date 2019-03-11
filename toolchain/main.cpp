@@ -25,12 +25,14 @@ int main(int argc, char** argv, char** env) {
     Verilated::traceEverOn(true);
     VerilatedVcdC* tfp = new VerilatedVcdC;
     top->trace(tfp, 99);  // Trace 99 levels of hierarchy
-    tfp->open("obj_dir/data.vcd");
+    tfp->open("data.vcd");
     
     while (sc_time_stamp() < sim_time && !Verilated::gotFinish()) {
-        top->reset = (main_time < 5) ? 1 : 0;
-        top->clk = main_time % 2;
-        top->enable = 1;
+      
+        top->i_reset = (main_time < 5) ? 1 : 0;
+        top->i_clk = main_time % 2;
+        top->i_test_a = main_time % 7;
+        top-> i_test_b = main_time % 3;
         top->eval();
         tfp->dump(main_time);
         main_time++;
